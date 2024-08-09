@@ -1,36 +1,20 @@
 # Use the official Go image to build the application
-FROM golang:1.22.5 AS build
+FROM golang:1.22.5
 
-# Set the working directory inside the container
-WORKDIR /app
+# Set the Current Working Directory inside the container
+WORKDIR /go/src/app/
 
-# Copy the Go module and dependency files first
-COPY go.mod go.sum ./
-RUN go mod download
-
-# Then copy the rest of the code
+# Copy everything from the current directory to the PWD(Present Working Directory) inside the container
 COPY . .
 
-# Build the application for Linux
-RUN GOOS=linux GOARCH=amd64 go build -o main .
+# Download all the dependencies
+RUN go mod download -x
 
-# Use a smaller image to run the application
-FROM alpine:latest
+# Install compile daemon for hot reloading
+RUN go install -mod=mod github.com/githubnemo/CompileDaemon
 
-# Install the necessary dependencies to run the application
-RUN apk add --no-cache ca-certificates
-
-# Set the working directory inside the container
-WORKDIR /app
-
-# Copy the binary from the build stage
-COPY --from=build /app/main .
-
-# Ensure the binary is executable
-RUN chmod +x ./main
-
-# Expose the port the application will run on
+# Expose port 80 to the outside world
 EXPOSE 8080
 
-# Command to run the application
-CMD ["./main"]
+# Command to run the executable
+ENTRYPOINT CompileDaemon --build="go build main.go" --command="./main"

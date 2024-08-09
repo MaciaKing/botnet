@@ -2,14 +2,14 @@ version: '3'
 
 services:
   web:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    restart: on-failure
+    build: .
+    volumes:
+      - ./:/go/src/app/
+      - ./go.mod:/go/src/app/go.mod
     env_file:
       - .env
     ports:
-      - "8000:8000"
+      - "8080:8080"
     depends_on:
       - "db"
 
