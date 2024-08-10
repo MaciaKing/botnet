@@ -21,10 +21,7 @@ func main() {
 
 	r.GET("/bots", handler.GetAllBots)
 
-	// r.LoadHTMLGlob("./templates/*")
 	r.LoadHTMLGlob("./templates/*.html")
-
-	// Servir archivos estáticos desde `templates/assets`
 	r.Static("/assets", "./templates/assets")
 
 	r.GET("/", func(c *gin.Context) {
