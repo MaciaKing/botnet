@@ -2,6 +2,7 @@ package main
 
 import (
 	"botnet/database"
+	"botnet/handler"
 
 	"github.com/gin-gonic/gin"
 )
@@ -16,5 +17,7 @@ func main() {
 			"message": "pong",
 		})
 	})
+
+	r.GET("/bots", handler.GetAllBots)
 	r.Run() // listen and serve on 0.0.0.0:8080
 }
