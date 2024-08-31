@@ -1,6 +1,6 @@
 package models
 
 type Bot struct {
-	Id int    `gorm:"primaryKey" json:"id"`
+	Id int    `gorm:"primaryKey;autoIncrement" json:"id"`
 	Ip string `json:"ip"`
 }

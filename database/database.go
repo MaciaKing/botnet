@@ -39,10 +39,10 @@ func Migrate() {
 
 func createDefaultBoots() {
 	boots := []models.Bot{
-		{Id: 1, Ip: "1.0.0.0"},
-		{Id: 2, Ip: "2.0.0.0"},
-		{Id: 3, Ip: "3.0.0.0"},
-		{Id: 4, Ip: "4.0.0.0"},
+		{Ip: "1.0.0.0"},
+		{Ip: "2.0.0.0"},
+		{Ip: "3.0.0.0"},
+		{Ip: "4.0.0.0"},
 	}
 
 	for _, bot := range boots {

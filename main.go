@@ -21,6 +21,7 @@ func main() {
 	})
 
 	r.GET("/bots", handler.GetAllBots)
+	r.POST("/create", handler.Create)
 
 	r.LoadHTMLGlob("./templates/*.html")
 	r.Static("/assets", "./templates/assets")
